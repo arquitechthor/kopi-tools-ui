@@ -1,0 +1,44 @@
+/* ── Kopi Tools global styles ─────────────────────────────────── */
+
+$kopi-pink: #d63384;
+
+body {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  color: $kopi-pink !important;
+  letter-spacing: -0.3px;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
+}
+
+.badge-tags .badge {
+  font-weight: 400;
+  font-size: 0.72rem;
+}
+
+.btn-move {
+  padding: 0.1rem 0.4rem;
+  font-size: 0.75rem;
+}
+
+.hover-lift {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.spinner-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}

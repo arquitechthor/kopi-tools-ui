@@ -1,0 +1,68 @@
+<div class="container py-4">
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h3 class="mb-0"><i class="fa-solid fa-list-check me-2 text-success"></i>Task List</h3>
+    <a routerLink="/tasks/new" class="btn btn-dark btn-sm">
+      <i class="fa-solid fa-plus me-1"></i>Add task
+    </a>
+  </div>
+
+  @if (loading()) {
+    <div class="spinner-center"><div class="spinner-border text-secondary"></div></div>
+  } @else if (errorMsg()) {
+    <div class="alert alert-danger">{{ errorMsg() }}</div>
+  } @else if (tasks().length === 0) {
+    <div class="text-center text-muted py-5">
+      <i class="fa-solid fa-list-check fa-2x mb-3 d-block"></i>
+      No tasks yet. <a routerLink="/tasks/new">Add your first one!</a>
+    </div>
+  } @else {
+    <div class="list-group">
+      @for (task of tasks(); track task.id; let i = $index) {
+        <div class="list-group-item list-group-item-action d-flex align-items-start gap-3 py-3">
+          <!-- Priority badge -->
+          <span class="badge bg-secondary rounded-pill mt-1" style="min-width:28px">{{ task.priority }}</span>
+
+          <!-- Content -->
+          <div class="flex-grow-1 min-w-0">
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+              <strong>{{ task.title }}</strong>
+              <span class="badge bg-light text-dark border small">{{ task.category }}</span>
+            </div>
+            @if (task.description) {
+              <p class="mb-1 small text-muted">{{ task.description }}</p>
+            }
+            @if (tagsArray(task.tags).length > 0) {
+              <div class="badge-tags d-flex flex-wrap gap-1">
+                @for (tag of tagsArray(task.tags); track tag) {
+                  <span class="badge bg-secondary-subtle text-secondary-emphasis">{{ tag }}</span>
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Actions -->
+          <div class="d-flex flex-column gap-1">
+            <div class="d-flex gap-1">
+              <button class="btn btn-outline-secondary btn-move" title="Move up"
+                      [disabled]="i === 0" (click)="moveUp(task.id)">
+                <i class="fa-solid fa-chevron-up"></i>
+              </button>
+              <button class="btn btn-outline-secondary btn-move" title="Move down"
+                      [disabled]="i === tasks().length - 1" (click)="moveDown(task.id)">
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+            </div>
+            <div class="d-flex gap-1">
+              <a [routerLink]="['/tasks', task.id, 'edit']" class="btn btn-outline-secondary btn-move">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </a>
+              <button class="btn btn-outline-danger btn-move" (click)="delete(task.id)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

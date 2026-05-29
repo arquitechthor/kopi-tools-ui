@@ -1,0 +1,41 @@
+<div class="card shadow-sm mt-4">
+  <div class="card-body p-4">
+    <h4 class="card-title text-center mb-1">
+      <i class="fa-solid fa-mug-hot" style="color:#d63384"></i>
+    </h4>
+    <h5 class="card-title text-center mb-4">Sign in to Kopi Tools</h5>
+
+    @if (errorMsg()) {
+      <div class="alert alert-danger py-2 small">{{ errorMsg() }}</div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="mb-3">
+        <label class="form-label" for="email">Email</label>
+        <input id="email" type="email" class="form-control"
+               formControlName="email" autocomplete="email"
+               [class.is-invalid]="form.get('email')?.invalid && form.get('email')?.touched">
+        <div class="invalid-feedback">Enter a valid email.</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="password">Password</label>
+        <input id="password" type="password" class="form-control"
+               formControlName="password" autocomplete="current-password"
+               [class.is-invalid]="form.get('password')?.invalid && form.get('password')?.touched">
+        <div class="invalid-feedback">Password is required.</div>
+      </div>
+
+      <button type="submit" class="btn btn-dark w-100" [disabled]="loading()">
+        @if (loading()) {
+          <span class="spinner-border spinner-border-sm me-2"></span>
+        }
+        Sign in
+      </button>
+    </form>
+
+    <p class="text-center mt-3 mb-0 small">
+      Don't have an account? <a routerLink="/auth/register">Register</a>
+    </p>
+  </div>
+</div>

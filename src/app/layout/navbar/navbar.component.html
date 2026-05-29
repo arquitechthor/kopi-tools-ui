@@ -1,0 +1,69 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/home">
+      <i class="fa-solid fa-mug-hot me-2"></i>Kopi Tools
+    </a>
+
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navbarMain"
+            aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMain">
+      @if (isLoggedIn) {
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/home" routerLinkActive="active">
+              <i class="fa-solid fa-house me-1"></i>Home
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-toolbox me-1"></i>Tools
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" routerLink="/links" routerLinkActive="active">
+                  <i class="fa-solid fa-link me-1"></i>Links
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" routerLink="/tasks" routerLinkActive="active">
+                  <i class="fa-solid fa-list-check me-1"></i>Tasks
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-circle-user me-1"></i>{{ currentUser?.name }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><span class="dropdown-item-text text-muted small">{{ currentUser?.email }}</span></li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <button class="dropdown-item text-danger" (click)="logout()">
+                  <i class="fa-solid fa-right-from-bracket me-1"></i>Logout
+                </button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      } @else {
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/auth/login">
+              <i class="fa-solid fa-right-to-bracket me-1"></i>Login
+            </a>
+          </li>
+        </ul>
+      }
+    </div>
+  </div>
+</nav>
